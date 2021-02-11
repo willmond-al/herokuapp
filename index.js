@@ -8,11 +8,15 @@ const port = process.env.PORT || 9000
 
 app.use(cors())
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "client/build", "index.html")))
+app.use(express.static(path.join(__dirname, "client/build")))
 
 
 app.use('/api/*', ( _ , res) => { 
     res.json({data: "The API lives here"})
+}) 
+
+app.use('*', ( _ , res) => { 
+    res.sendFile(path.join(__dirname, "client/build", "index.html"))
 }) 
 
 app.listen(port, () => {
